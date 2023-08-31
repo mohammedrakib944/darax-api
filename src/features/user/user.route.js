@@ -1,8 +1,11 @@
 import express from "express";
+import { createUserUsingGoogle, updateUser } from "./user.controller.js";
+
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  res.json("Hi from user Rakib!");
-});
+// /api/users/google-auth
+router.post("/google-auth", createUserUsingGoogle);
+
+router.route("/:id").patch(updateUser);
 
 export default router;

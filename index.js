@@ -1,6 +1,7 @@
 import app from "./src/app.js";
+import connectDB from "./src/config/database.js";
 
-const PORT = 5000;
+const PORT = 8000;
 
 // Server ERROR HANDER
 app.use((err, req, res, next) => {
@@ -14,4 +15,5 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, async () => {
   console.log(`App is running on http://localhost:${PORT}`);
+  await connectDB();
 });
