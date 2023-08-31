@@ -16,7 +16,6 @@ export const createUserUsingGoogle = async (req, res, next) => {
 
     // Create JWT
     const token = createToken({ email }, process.env.JWT_SECRET);
-    console.log("Token: ", token);
 
     if (user) {
       res.status(201).json({ user, access_token: token });

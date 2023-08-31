@@ -1,4 +1,5 @@
 import JWT from "jsonwebtoken";
+import createHttpError from "http-errors";
 
 /**
  * @param {Object} payload
@@ -11,8 +12,7 @@ const createToken = (payload, secretKey, expiresIn = "10d") => {
     const token = JWT.sign(payload, secretKey, { expiresIn });
     return token;
   } catch (err) {
-    console.log("Err -> ", err);
-    throw createError("Cann't create JWT");
+    throw createHttpError("Cann't create JWT");
   }
 };
 
