@@ -3,6 +3,7 @@ import morgan from "morgan";
 import { Request, Response, NextFunction } from "express";
 import { IRoutes } from "./interfaces/routes.interface";
 import { errorHandler } from "./middlewares/error.middleware";
+import connectDB from "./config/db.config";
 
 class App {
   public app: express.Application;
@@ -16,7 +17,6 @@ class App {
 
     this.connectToDatabase();
     this.initializeMiddlewares();
-    this.connectToDatabase();
     this.initializeRoutes(routes);
     this.urlNotFound();
     this.initializeErrorHandling();
@@ -36,7 +36,7 @@ class App {
   }
 
   private connectToDatabase() {
-    console.log("Database connected!");
+    connectDB();
   }
 
   private initializeRoutes(routes: IRoutes[]) {

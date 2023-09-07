@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import App from "./app";
 import UsersRoutes from "./features/users/users.route";
 
