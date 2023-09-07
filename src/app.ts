@@ -2,7 +2,6 @@ import express from "express";
 import morgan from "morgan";
 import { Request, Response, NextFunction } from "express";
 import { IRoutes } from "./interfaces/routes.interface";
-import { errorHandler } from "./middlewares/error.middleware";
 import connectDB from "./config/db.config";
 
 class App {
@@ -52,7 +51,17 @@ class App {
   }
 
   private initializeErrorHandling() {
-    this.app.use(errorHandler);
+    // Server ERROR HANDER
+    this.app.use(
+      (err: any, req: Request, res: Response, next: NextFunction) => {
+        const statusCode = err.status || 500;
+        const errorMessage = err.message || err || "Server Error!";
+        return res.status(statusCode).json({
+          sucess: false,
+          message: errorMessage,
+        });
+      }
+    );
   }
 }
 
