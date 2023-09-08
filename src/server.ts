@@ -1,9 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 import App from "./app";
-import UsersRoutes from "./features/users/users.route";
-
-const routes = [new UsersRoutes()];
+import routes from "./routes";
 
 const app = new App(routes);
 
