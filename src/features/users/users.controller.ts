@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import userModel from "./users.model";
 import success from "../../helpers/success";
 import createError from "http-errors";
+import jwt from "jsonwebtoken";
 
 class UsersController {
   // Get all users
@@ -11,7 +12,7 @@ class UsersController {
     next: NextFunction
   ) => {
     try {
-      const search: string = String(req.query.search) || "";
+      const search = req.query.search || "";
       const page: number = Number(req.query.page) || 1;
       const limit: number = Number(req.query.limit) || 5;
 
@@ -74,6 +75,31 @@ class UsersController {
     try {
       await userModel.create(req.body);
       success(res);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  // login in with name and email
+  public logInWithEmail = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    try {
+      const { email, name } = req.body;
+
+      const user = await userModel.findOne({ email });
+
+      const jwtSecret: string = process.env.JWT_SECRET!;
+      const token = jwt.sign({ email, name }, jwtSecret, { expiresIn: "10d" });
+
+      if (user) {
+        res.status(200).json({ user, access_token: token });
+      } else {
+        const newuser = await userModel.create(req.body);
+        res.status(200).json({ user: newuser, access_token: token });
+      }
     } catch (error) {
       next(error);
     }

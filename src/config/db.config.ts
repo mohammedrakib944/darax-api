@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://Rakib:p0WP5qKZD5zIJfzk@cluster0.es0po.mongodb.net/darax?retryWrites=true&w=majority";
+const MONGODB_URI: string = process.env.MONGODB_URI!;
 // DATABASE SETUP
 const connectDB = async () => {
   try {

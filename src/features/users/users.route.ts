@@ -18,6 +18,12 @@ class UsersRoutes implements IRoutes {
       .route(`${this.path}`)
       .get(this.usersController.getAllUsers)
       .post(userValidator, validationOutput, this.usersController.createUser);
+    this.router.post(
+      `${this.path}/login`,
+      userValidator,
+      validationOutput,
+      this.usersController.logInWithEmail
+    );
     this.router
       .route(`${this.path}/:id`)
       .get(this.usersController.getUser)
