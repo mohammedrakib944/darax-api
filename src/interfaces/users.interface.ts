@@ -7,7 +7,7 @@ export interface IUser {
   phone?: string;
   image?: string;
   postal_code?: string;
-  is_admin?: boolean;
+  role?: string;
   is_banned?: boolean;
   created_at?: string;
 }

@@ -33,9 +33,10 @@ const userSchema = new Schema({
   postal_code: {
     type: String,
   },
-  is_admin: {
-    type: Boolean,
-    default: false,
+  role: {
+    type: String,
+    enum: ["seller", "customer", "admin"],
+    default: "customer",
   },
   is_banned: {
     type: Boolean,
